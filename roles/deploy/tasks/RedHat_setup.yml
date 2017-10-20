@@ -3,7 +3,7 @@
 
 - name: download war file from GIT reporsitory
   get_url:
-    url: {{ war_file_down_loc }}
+    url: '{{ war_file_down_loc }}'
     dest: /tmp
     mode: 0777
 

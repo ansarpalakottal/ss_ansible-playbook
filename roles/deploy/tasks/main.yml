@@ -1,5 +1,5 @@
 ---
-# tasks file for deploy
+# tasks file for common
 
 - name: include OS related var files
   include_vars: "{{ ansible_os_family }}_vars.yml"
