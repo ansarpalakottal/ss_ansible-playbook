@@ -23,3 +23,8 @@
     group: tomcat
     backup: yes
   when: "tomcat_process_status.stdout|int == 0"
+
+- name: remove java symlink from app folder
+  file:
+    path: "/local/apps/AIS/java"
+    state: absent
