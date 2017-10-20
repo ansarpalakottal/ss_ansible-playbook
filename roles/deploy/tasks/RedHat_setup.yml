@@ -29,7 +29,7 @@
 - name: copy war file to backup folder
   copy:
     src: '{{ war_file_loc }}/{{ war_file }}'
-    dest: '/backup/AIS/{{ war_file }}_{{ ansible_date_time.date.time }}'
+    dest: '/backup/AIS/{{ war_file }}_{{ ansible_facts.ansible_date_time.date.time }}'
 
 - name: copy war file to the deployment folder
   copy:
