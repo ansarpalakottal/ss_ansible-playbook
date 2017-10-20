@@ -1,3 +1,2 @@
 ---
-
 - import_playbook: deploy.yml
