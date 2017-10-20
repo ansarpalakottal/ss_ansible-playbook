@@ -28,3 +28,11 @@
   file:
     path: "/local/apps/AIS/java"
     state: absent
+
+- name: create java symlink again
+  file:
+    src: '/usr/jdk/instances/jdk1.8.0_74'
+    dest: '/local/apps/AIS/java'
+    owner: tomcat
+    group: tomcat
+    state: link
