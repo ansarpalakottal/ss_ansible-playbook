@@ -1,6 +1,7 @@
 ---
 # deploy.yml includes deployment stuffs
 
-- hosts: prod-deploy-servers
+- hosts: all
   roles:
     - common
+    - deploy
