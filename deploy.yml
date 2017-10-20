@@ -4,4 +4,3 @@
 - hosts: prod-deploy-servers
   roles:
     - common
-    - deploy
