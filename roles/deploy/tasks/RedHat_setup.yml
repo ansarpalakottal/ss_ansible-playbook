@@ -22,14 +22,14 @@
     group: tomcat
     mode: 0755
 
- - name: Get a timestamp
-   command: date +%Y%m%d%H%M%S
-   register: timestamp
+# - name: Get a timestamp
+ #  command: date +%Y%m%d%H%M%S
+  # register: timestamp
 
 - name: copy war file to backup folder
   copy:
     src: '{{ war_file_loc }}/{{ war_file }}'
-    dest: '/backup/AIS/{{ war_file }}_{{ timestamp.stdout }}'
+    dest: '/backup/AIS/{{ war_file }}_{{ ansible_date_time.date.time }}'
 
 - name: copy war file to the deployment folder
   copy:
