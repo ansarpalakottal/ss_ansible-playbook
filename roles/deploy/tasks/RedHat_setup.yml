@@ -14,6 +14,23 @@
   shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
   register: tomcat_process_status
 
+- name: create directory for backup
+  file:
+    path: '/backup/AIS'
+    state: directory
+    owner: tomcat
+    group: tomcat
+    mode: 0755
+
+ - name: Get a timestamp
+   command: date +%Y%m%d%H%M%S
+   register: timestamp
+
+- name: copy war file to backup folder
+  copy:
+    src: '{{ war_file_loc }}/{{ war_file }}'
+    dest: '/backup/AIS/{{ war_file }}_{{ timestamp.stdout }}'
+
 - name: copy war file to the deployment folder
   copy:
     src: '/tmp/{{ war_file }}'
@@ -36,3 +53,4 @@
     owner: tomcat
     group: tomcat
     state: link
+
