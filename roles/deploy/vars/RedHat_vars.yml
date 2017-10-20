@@ -1,0 +1,6 @@
+---
+# vars file for common
+
+war_file: helloworld.war
+war_file_down_loc: 'https://raw.githubusercontent.com/jibinjose087/download-repo/master/sample.war'
+war_file_loc: '/opt/tomcat8/webapps'

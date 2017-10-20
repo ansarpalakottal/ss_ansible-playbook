@@ -1,0 +1,25 @@
+---
+# tasks file for common
+
+- name: download war file from GIT reporsitory
+  get_url:
+    url: {{ war_file_down_loc }}
+    dest: /tmp
+    mode: 0777
+
+- name: stop the tomcat service
+  service: name=tomcat state=stopped
+
+- name: verify tomcat is stopped or not
+  shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
+  register: tomcat_process_status
+
+- name: copy war file to the deployment folder
+  copy:
+    src: '/tmp/{{ war_file }}'
+    dest: '{{ war_file_loc }}/{{ war_file }}'
+    remote_src: yes
+    owner: tomcat
+    group: tomcat
+    backup: yes
+  when: "tomcat_process_status.stdout|int == 0"

@@ -2,7 +2,6 @@
 # deploy.yml includes deployment stuffs
 
 - hosts: all
-  become: true
   roles:
     - common
     - deploy
