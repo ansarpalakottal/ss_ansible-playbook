@@ -28,7 +28,7 @@
 
 - name: copy war file to backup folder
   copy:
-    src: '{{ war_file_loc }}/{{ war_file }}'
+    src: "{{ war_file_loc }}/{{ war_file }}"
     dest: '/backup/AIS/{{ war_file }}_backup'
 
 - name: remove the deployed war files
