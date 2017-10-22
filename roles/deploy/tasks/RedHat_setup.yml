@@ -26,10 +26,15 @@
  #  command: date +%Y%m%d%H%M%S
   # register: timestamp
 
-#- name: copy war file to backup folder
-#  copy:
-#    src: '{{ war_file_loc }}/{{ war_file }}'
- #   dest: '/backup/AIS/{{ war_file }}_{{ ansible_date_time.date.time }}'
+- name: copy war file to backup folder
+  copy:
+    src: '{{ war_file_loc }}/{{ war_file }}'
+    dest: '/backup/AIS/{{ war_file }}_backup'
+
+- name: remove the deployed war files
+  file:
+    path: '{{ war_file_loc }}/{{ war_file_deploy}}'
+    state: absent
 
 - name: copy war file to the deployment folder
   copy:
@@ -39,6 +44,7 @@
     owner: tomcat
     group: tomcat
     backup: yes
+  notify: restart tomcat
   when: "tomcat_process_status.stdout|int == 0"
 
 - name: remove java symlink from app folder
@@ -53,4 +59,18 @@
     owner: tomcat
     group: tomcat
     state: link
+
+- name: remove cache Catalina folder
+  file:
+    path: '/opt/tomcat8/work/Catalina/localhost/{{ war_file_deploy }}'
+    state: absent
+
+- name: start tomcat service
+  service: name=tomcat state=started
+
+- name: checking the tomcat_process_status
+  shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
+  register: tomcat_process_status_final
+
+#- name: cross checking the tomcat status and restarting it again
 
