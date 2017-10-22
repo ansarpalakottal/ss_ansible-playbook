@@ -6,12 +6,3 @@
 
 - name: include OS sepcific common tasks
   include: "{{ ansible_os_family }}_setup.yml"
-
-- name: install NTP server
-  yum: name=ntp state=installed
-
-- name: start the NTP server
-  service: name=ntpd state=started
-
-- name: enable NTP server
-  service: name=ntpd enabled=yes
