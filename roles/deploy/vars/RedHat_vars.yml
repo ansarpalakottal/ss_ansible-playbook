@@ -4,4 +4,4 @@
 war_file: sample.war
 war_file_deploy: sample
 war_file_down_loc: 'https://raw.githubusercontent.com/jibinjose087/download-repo/master/sample.war'
-war_file_loc: '/opt/tomcat8/webapps'
+war_file_loc: '/local/apps/AIS'
