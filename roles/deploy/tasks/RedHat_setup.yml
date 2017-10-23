@@ -25,12 +25,17 @@
 # - name: Get a timestamp
  #  command: date +%Y%m%d%H%M%S
   # register: timestamp
+- name: checking the status of the war file before backing up
+  stat:
+    path: "{{ war_file_loc }}/{{ war_file }}"
+  regiser: backup_war_file_stat
 
 - name: copy war file to backup folder
   copy:
     src: "{{ war_file_loc }}/{{ war_file }}"
     dest: '/backup/AIS/{{ war_file }}_backup_`date +%F`'
     remote_src: yes
+  when: backup_war_file_stat.exists == True
 
 - name: remove the deployed war files
   file:
@@ -73,5 +78,11 @@
   shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
   register: tomcat_process_status_final
 
-#- name: cross checking the tomcat status and restarting it again
+- debug:
+    msg: "The deployment completed successfully and tomcat started"
+  when: "tomcat_process_status_final.stdout| int != 0"
+
+- debug:
+    msg: "The deployment seems to be failure and tomcat not started"
+  when: tomcat_process_status_final.stdout| int == 0"
 
