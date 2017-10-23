@@ -28,7 +28,7 @@
 - name: checking the status of the war file before backing up
   stat:
     path: "{{ war_file_loc }}/{{ war_file }}"
-    remote_src: yes
+#    remote_src: yes
   regiser: backup_war_file_stat
 
 - name: copy war file to backup folder
