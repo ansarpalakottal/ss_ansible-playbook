@@ -10,13 +10,16 @@
 - name: stop the tomcat service
   service: name=tomcat state=stopped
 
+- name: stop the tomcat service
+  service: name=tomcat state=started
+
 - name: verify tomcat stopped status
   wait_for:
     host: '127.0.0.1'
     port: 8090
     state: stopped
     delay: 1
-    timeout: 1200
+    timeout: 60
 
 - name: verify tomcat is stopped or not
   shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
@@ -83,10 +86,10 @@
 
 - name: wait for tomcat to startup
   wait_for:
-    host: '0.0.0.0'
+    host: '127.0.0.1'
     port: 8090
     delay: 20
-    timeout: 300
+    timeout: 60
 
 - name: checking the tomcat_process_status
   shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
@@ -99,5 +102,3 @@
 - debug:
     msg: "The deployment seems to be failure and tomcat not started"
   when: "tomcat_process_status_final.stdout|int == 0"
-
-
