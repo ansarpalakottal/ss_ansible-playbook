@@ -30,7 +30,7 @@
     group: tomcat
     mode: 0755
 
-- name: Check that the somefile.conf exists
+- name: checking the war file exists or not
   stat:
     path: '{{ war_file_loc }}/{{ war_file }}'
   register: stat_result
@@ -46,6 +46,7 @@
   file:
     path: '{{ war_file_loc }}/{{ war_file_deploy}}'
     state: absent
+  when: "stat_result.stat.exists == True and tomcat_process_status.stdout|int == 0"
 
 - name: copy war file to the deployment folder
   copy:
@@ -75,6 +76,7 @@
   file:
     path: '/opt/tomcat8/work/Catalina/localhost/{{ war_file_deploy }}'
     state: absent
+  when: "tomcat_process_status.stdout|int == 0"
   notify:
     restart tomcat
 
