@@ -10,6 +10,14 @@
 - name: stop the tomcat service
   service: name=tomcat state=stopped
 
+- name: verify tomcat stopped status
+  wait_for:
+    host: '127.0.0.1'
+    port: 8090
+    state: stopped
+    delay: 1
+    timeout: 1200
+
 - name: verify tomcat is stopped or not
   shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
   register: tomcat_process_status
