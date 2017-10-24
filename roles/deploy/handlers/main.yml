@@ -3,11 +3,3 @@
 
 - name: restart tomcat
   service: name=tomcat state=restarted
-
-- name: verify tomcat stopped status
-  wait_for:
-    host: '127.0.0.1'
-    port: 8090
-    state: stopped
-    delay: 1
-    timeout: 60
