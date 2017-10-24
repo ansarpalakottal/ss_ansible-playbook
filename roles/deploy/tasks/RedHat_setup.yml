@@ -12,7 +12,7 @@
 
 - name: verify tomcat stopped status
   wait_for:
-    host: '0.0.0.0'
+    host: '127.0.0.1'
     port: 8090
     state: stopped
     delay: 1
