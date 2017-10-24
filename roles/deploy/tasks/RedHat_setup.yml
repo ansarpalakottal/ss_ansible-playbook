@@ -18,6 +18,9 @@
     delay: 1
     timeout: 60
 
+- name: restart tomcat
+  service: name=tomcat state=started
+
 - name: stop the tomcat service
   service: name=tomcat state=stopped
   notify:
@@ -90,7 +93,7 @@
   wait_for:
     host: '127.0.0.1'
     port: 8090
-    delay: 20
+    delay: 1
     timeout: 60
 
 - name: checking the tomcat_process_status
