@@ -18,6 +18,11 @@
     delay: 1
     timeout: 60
 
+- name: stop the tomcat service
+  service: name=tomcat state=stopped
+  notify:
+  - verify tomcat stopped status
+
 - name: verify tomcat is stopped or not
   shell: ps -ef | grep tomcat8 | grep -v grep | wc -l
   register: tomcat_process_status
