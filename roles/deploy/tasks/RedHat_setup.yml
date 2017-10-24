@@ -10,9 +10,6 @@
 - name: stop the tomcat service
   service: name=tomcat state=stopped
 
-- name: stop the tomcat service
-  service: name=tomcat state=started
-
 - name: verify tomcat stopped status
   wait_for:
     host: '127.0.0.1'
